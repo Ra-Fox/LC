@@ -1,0 +1,388 @@
+html {
+    box-sizing: border-box;
+    font-size: 62.5%;
+    /* Reset para REMS - 62.5% 10px de 16px*/
+    background-color: rgb(37, 24, 48);
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.6rem;
+    line-height: 2;
+}
+
+/**Estilos Globales**/
+.contenedor {
+    max-width: 120rem;
+    /*1200px*/
+    margin: 0 auto 0 auto;
+    /*Esta es la forma larga*/
+    margin: 0 auto;
+    /*Esta es una manera resumida, buena práctica*/
+
+}
+
+h1 {
+    font-size: 3.8rem;
+}
+
+h2 {
+    font-size: 3.4rem;
+
+}
+
+h3 {
+    font-size: 3rem;
+}
+
+h4 {
+    font-size: 2.6rem;
+}
+
+img {
+    /** Super importante **/
+    max-width: 100%;
+}
+
+/** Utilidades **/
+
+.seccion {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.fw-300 {
+    font-weight: 300;
+}
+
+.centrar-texto {
+    text-align: center;
+}
+
+
+
+.wt {
+    background: white;
+    margin-bottom: 2rem;
+}
+
+
+.dblock {
+    display: block !important;
+    /*Se aplica este, no importa la cascada*/
+}
+
+/** Botones */
+
+.boton {
+    color: white;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 1.8rem;
+    padding: 1rem 3rem;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    text-align: center;
+}
+
+.boton-analizar {
+    width: 15rem;
+    color: #DEDEDE;
+    background-color: #38AF68;
+    margin: 0 auto auto 6rem;
+    text-align: center;
+    padding-top: auto;
+    padding-bottom: auto;
+    border-radius: 10px;
+}
+
+.boton-analizar:hover {
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+/* Header */
+
+.titulo {
+    text-decoration: none;
+}
+
+.site-header.inicio {
+    background-image: url(../img/source.gif);
+    background-position: center center;
+    background-size: cover;
+    /*Fuerza que tome todo el espacio pero tomando las proporciones*/
+    height: 100vh;
+    /*La altura de la pantalla*/
+    min-height: 60rem;
+}
+
+.contenido-header {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.contenido-header h1 {
+    color: white;
+    text-decoration: none;
+    padding-bottom: 2rem;
+    max-width: 60rem;
+    /*Para ponerlo en 2 lineas*/
+    line-height: 2;
+}
+
+.barra {
+    display: flex;
+    justify-content: space-between;
+    /*1__1*/
+    align-items: center;
+    padding-top: 3rem;
+}
+
+/**Navegacion**/
+.navegacion a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.8rem;
+    margin-right: 2rem;
+    font: 'Times New Roman'Times, Serif;
+}
+
+.navegacion a:hover {
+    /*Cuando pasas el mouse*/
+    color: yellow;
+}
+
+.navegacion a:last-of-type {
+    /*El ultimo*/
+    margin-right: 0;
+}
+
+/**************************************************** Analizador ****************************************************/
+.cargar {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 3rem;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
+
+.cargar p {
+    margin-left: 6rem;
+    ;
+    color: white;
+}
+
+#selector {
+    margin-top: auto;
+    margin-bottom: auto;
+    color: white;
+
+}
+
+.sec-analizador {
+    height: 100vh;
+}
+
+.analizador h2 {
+    font-size: 3rem;
+    color: white;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.analizador {
+    background-color: rgb(64, 66, 79);
+    margin: auto;
+    /*La altura de la pantalla*/
+    height: calc(99%);
+    width: calc(100%);
+    min-height: 60rem;
+    padding-bottom: 0rem;
+    border-radius: 15px;
+}
+
+.entrada {
+    display: block;
+    margin: 1rem auto 1rem auto;
+    width: calc(90%);
+    height: calc(84% - 11rem);
+    font-size: 3rem;
+    padding: 2rem;
+    text-align: l;
+    color: rgb(255, 152, 0);
+    background-color: rgb(60, 62, 75);
+    caret-color: rgb(0, 188, 212);
+    resize: none;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+}
+
+.entrada:hover {
+    border-color: none;
+}
+
+.consola-bottom {
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+}
+
+.resultado {
+    margin: auto;
+    margin-bottom: auto;
+    padding-bottom: 0;
+    font-size: 2rem;
+    color: white;
+}
+
+.solucion {
+    background: white;
+    padding: 0.9rem;
+    border-radius: 5px;
+    margin-left: 1rem;
+}
+
+#s2 {
+    border-radius: 15px;
+}
+
+/** Automata **/
+
+.afd p {
+    font-size: 5rem;
+}
+
+.detalles p {
+    font-size: 2.5rem;
+}
+
+.detalles {
+    width: calc(50%);
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.TSD{
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 2rem;
+}
+
+.tableizer-table {
+    margin-top: 20px;
+    background-color: white;
+    text-align: left;
+    border-collapse: ;
+    width: 100%;
+
+}
+
+th,
+td {
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.9rem;
+}
+
+
+.tableizer-firstrow {
+    background-color: #246355;
+    color: white;
+    border-bottom: solid 5px #0F362D;
+}
+
+.first-column{
+    background-color: #246355;
+    color: white;
+    width: 10rem;
+}
+
+tr:nth-child(even) {
+    background-color: #ddd;
+    border-color: black;
+}
+
+tr:hover td {
+    background-color: #369681;
+    color: white;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(64, 66, 79);
+    color: white;
+    padding-left: 8rem;
+}
+
+.partFooter {
+    flex-basis: calc(33.3% - 1rem);
+}
+
+#s2 {
+    padding-top: 2rem;
+}
+
+.f-footer {
+    margin-top: calc(25%);
+    margin-bottom: calc(25%);
+}
+
+.titulo-footer {
+    color: white;
+    text-decoration: none;
+    align-items: center;
+
+}
+
+/**Neu**/
+.inset {
+    border-radius: 20px;
+    box-shadow: inset -6px -6px 6px 0 rgba(72, 72, 72, 0.45),
+        inset 6px 6px 6px 0 rgba(0, 0, 0, 0.4);
+
+    position: relative;
+
+    .input-label {
+        position: absolute;
+        bottom: 7px;
+        left: 20px;
+        pointer-events: none;
+        transition: all 0.3s ease-in-out;
+    }
+
+    input {
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+        border: none;
+        padding-left: 20px;
+
+        &:focus,
+        &:valid {
+            outline: none;
+
+            + label {
+                font-size: 12px;
+                bottom: 40px;
+            }
+        }
+    }
+}

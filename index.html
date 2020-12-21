@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tarea 3: LL1</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <header id="hdr" class="site-header inicio">
+        <div class="contenedor contenido-header">
+            <div class="barra">
+                <a class="titulo" href="index.html">
+                    <h1>LL(1)</h1>
+                </a>
+                <nav class=navegacion>
+                    <a href="#hdr">Inicio</a>
+                    <a href="#s1">Parser</a>
+                    <a href="#s2">Funcionamiento</a>
+                </nav>
+            </div>
+            <h1>Lenguajes y Compiladores G1</h1>
+        </div>
+    </header>
+    <section id="s1" class="seccion contenedor sec-analizador">
+
+        <div class="analizador ">
+            <h2 class="fw-300 centrar-texto ">Ingrese la cadena a analizar</h2>
+            <div class="cargar">
+                <p>O selecione un archivo:&nbsp;
+                    &nbsp;
+                </p>
+                <input id="selector" type="file">
+            </div>
+            <textarea class="entrada inset" type="text" spellcheck=false id="textarea" onclick="limpiar();"></textarea>
+            <script type="text/javascript">
+                var myInput = document.getElementById("textarea");
+                if (myInput.addEventListener) {
+                    myInput.addEventListener('keydown', this.keyHandler, false);
+                } else if (myInput.attachEvent) {
+                    myInput.attachEvent('onkeydown', this.keyHandler); /* damn IE hack */
+                }
+
+                function keyHandler(e) {
+                    var TABKEY = 9;
+                    if (e.keyCode == TABKEY) {
+                        this.value += "    ";
+                        if (e.preventDefault) {
+                            e.preventDefault();
+                        }
+                        return false;
+                    }
+                }
+
+            </script>
+            <div class="consola-bottom">
+                <a class="boton boton-analizar" onclick="parser();">Analizar</a>
+                <p class="resultado">Resultado:<span class="solucion" id="resultadoafdp"></span></p>
+            </div>
+        </div>
+    </section>
+    <section id="s2" class="secion contenedor wt">
+        <h2 class="fw-300 centrar-texto">Funcionamiento</h2>
+        <div class="detalles">
+            <p>Sea la gramática:</p>
+        </div>
+        <div class="afd">
+            <p class="centrar-texto fw-300">G = ( V<sub>n</sub>, V<sub>t</sub> , P , S )</p>
+        </div>
+        <div class="detalles">
+            <p>V<sub>t</sub> = { struct , { , } , ; , pr , id , idstruct , int , float , , }</p>
+            <p>V<sub>n</sub> = { E , T , O , N , D , C , V , Y , B , P , G }</p>
+            <p>P = {
+                <br> S &rarr; E $
+                <br> E &rarr; struct T E
+                <br> E &rarr; V E
+                <br> E &rarr; λ
+                <br> T &rarr; O
+                <br> T &rarr; N
+                <br> O &rarr; D { C } P ;
+                <br> N &rarr; { C } G ;
+                <br> D &rarr; idstruct
+                <br> C &rarr; V C
+                <br> C &rarr; λ
+                <br> V &rarr; Y id B ;
+                <br> Y &rarr; int
+                <br> Y &rarr; float
+                <br> Y &rarr; D
+                <br> B &rarr; , id B
+                <br> B &rarr; λ
+                <br> P &rarr; , id B
+                <br> P &rarr; λ
+                <br> G &rarr; id R
+                <br> R &rarr; , id R
+                <br> R &rarr; λ
+            </p>
+            <p>S = S</p>
+            <p>Debido a que el parser LL(1) programado solo acepta un caracter por token, la cadena ingresada
+                pasará por una función filtro() que la hace compatible con estos cambios:
+                <br>Se les asignó un valor de un caracter a los Vt:
+            </p>
+            <p>
+                struct &larr; #
+                <br>int &larr; %
+                <br>float &larr; @
+                <br>id &larr; &#38;
+                <br>idstruct &larr; !
+            </p>
+            <p>Por lo tanto los Vt y las P serán:</p>
+            <p>V<sub>t</sub> = { # , { , } , ; , ! , &#38; , ! , % , @ , , }</p>
+            <p>P = {
+                <br> S &rarr; E $
+                <br> E &rarr; # T E
+                <br> E &rarr; V E
+                <br> E &rarr; λ
+                <br> T &rarr; O
+                <br> T &rarr; N
+                <br> O &rarr; D { C } P ;
+                <br> N &rarr; { C } G ;
+                <br> D &rarr; !
+                <br> C &rarr; V C
+                <br> C &rarr; λ
+                <br> V &rarr; Y &#38; B ;
+                <br> Y &rarr; %
+                <br> Y &rarr; @
+                <br> Y &rarr; D
+                <br> B &rarr; , &#38; B
+                <br> B &rarr; λ
+                <br> P &rarr; , &#38; R
+                <br> P &rarr; λ
+                <br> G &rarr; &#38; R
+                <br> R &rarr; , &#38; R
+                <br> R &rarr; λ
+            </p>
+            <h2 class="titulo">Tabla de Simbolos Directores</h2>
+            <div class="TSD">
+            <div class="contenedor1">
+                <table class="tableizer-table">
+                    <thead>
+                        <tr class="tableizer-firstrow">
+                            <th>Nro Regla</th>
+                            <th>Regla</th>
+                            <th>Símbolos directores</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="first-column">1</td>
+                            <td>S &rarr; E $</td>
+                            <td>#, $, %, @, !</td>
+                        </tr>
+                        <tr>
+                            <td class="first-column">2</td>
+                            <td>E &rarr; # T E</td>
+                            <td>#</td>
+                        </tr>
+                        <tr>
+                            <td class="first-column">3</td>
+                            <td>E &rarr; V E</td>
+                            <td>%, @, ! </td>
+                        </tr>
+                        <tr>
+                            <td class="first-column">4</td>
+                            <td>E &rarr; λ</td>
+                            <td>$</td>
+                        </tr>
+                        <tr>
+                            <td class="first-column">5</td>
+                            <td>T &rarr; O</td>
+                            <td>!</td>
+                        </tr>
+                        <tr>
+                            <td class="first-column">6</td>
+                            <td>T &rarr; N</td>
+                            <td>{</td>
+                        </tr>
+                        <tr>
+                            <td class="first-column">7</td>
+                            <td>O &rarr; D { C } P ;</td>
+                            <td>!</td>
+                        </tr>
+                        <tr>
+                            <td class="first-column">8</td>
+                            <td>N &rarr; { C } G ;</td>
+                            <td>{</td>
+                        </tr>
+                        <tr>
+                            <td class="first-column">9</td>
+                            <td>D &rarr; !</td>
+                            <td>!</td>
+                        </tr>
+                        <tr>
+                            <td class="first-column">10</td>
+                            <td>C &rarr; V C</td>
+                            <td>%, @, !</td>
+                        </tr>
+                        <tr>
+                            <td class="first-column">11</td>
+                            <td>C &rarr; λ</td>
+                            <td>}</td>
+                        </tr>
+                        <tr>
+                            <td class="first-column">12</td>
+                            <td>V &rarr; Y &#38; B ;</td>
+                            <td>%, @, !</td>
+                        </tr>
+                        <tr>
+                            <td class="first-column">13</td>
+                            <td>Y &rarr; @</td>
+                            <td>%</td>
+                        </tr>
+                        <tr>
+                            <td class="first-column">14</td>
+                            <td>Y &rarr; @</td>
+                            <td>@</td>
+                        </tr>
+                        <tr>
+                            <td class="first-column">15</td>
+                            <td>Y &rarr; D</td>
+                            <td>!</td>
+                        </tr>
+                        <tr>
+                            <td class="first-column">16</td>
+                            <td>B &rarr; , &#38; B</td>
+                            <td>,</td>
+                        </tr>
+                        <tr>
+                            <td class="first-column">17</td>
+                            <td>B &rarr; λ</td>
+                            <td>;</td>
+                        </tr>
+                        <tr>
+                            <td class="first-column">18</td>
+                            <td>P &rarr; , &#38; R</td>
+                            <td>&#38;</td>
+                        </tr>
+                        <tr>
+                            <td class="first-column">19</td>
+                            <td>P &rarr; λ</td>
+                            <td>;</td>
+                        </tr>
+                        <tr>
+                            <td class="first-column">20</td>
+                            <td>G &rarr; &#38; R</td>
+                            <td>&#38;</td>
+                        </tr>
+                        <tr>
+                            <td class="first-column">21</td>
+                            <td>R &rarr; , &#38; R</td>
+                            <td>,</td>
+                        </tr>
+                        <tr>
+                            <td class="first-column">22</td>
+                            <td>R &rarr; λ</td>
+                            <td>;</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        </div>
+        
+    </section>
+    <footer class="footer">
+        <div class="partFooter">
+            <div class="f-footer">
+                <a class="titulo-footer" href="index.html">
+                    <h2>Parser LL1</h2>
+                </a>
+            </div>
+        </div>
+        <div class="partFooter">
+            <h4>UNMSM</h4>
+            <p>Facultad de Ingeniería de Sistemas e informática</p>
+            <p>E.A.P. Ingeniería de Sistemas</p>
+            <p>Curso: Lenguajes y Compiladores G1 2020-II</p>
+            <p>Docente: Jaime Ruben Pariona Quispe</p>
+        </div>
+        <div class="partFooter">
+            <h4>Integrantes</h4>
+            <p>- Escalante Flores, Eduardo<br>18200147
+                <br>- Huamani Avendaño, Dulce María<br>18200219
+                <br>- Matos Ramos, Wilfredo Raphael<br>18200159
+            </p>
+        </div>
+    </footer>
+    <script type="text/javascript" src="js/ParserLL1.js"></script>
+</body>
+
+</html>
